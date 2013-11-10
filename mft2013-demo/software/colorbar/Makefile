@@ -1100,7 +1100,7 @@ hex : $(HEX)
 #------------------------------------------------------------------------------
 #                         JIC TARGET RULE
 #------------------------------------------------------------------------------
-FLASH_DEVICE := epcs64
+FLASH_DEVICE ?= epcs64
 JIC := $(basename $(ELF))_$(FLASH_DEVICE).jic
 COF := $(basename $(ELF))_$(FLASH_DEVICE).cof
 $(JIC) : $(COF) $(HEX)

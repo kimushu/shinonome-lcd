@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_main' in SOPC Builder design 'de0nano_nios2'
  * SOPC Builder design path: ../../de0nano_nios2.sopcinfo
  *
- * Generated: Sun Nov 10 00:39:19 JST 2013
+ * Generated: Sun Nov 10 13:49:45 JST 2013
  */
 
 /*
@@ -134,7 +134,6 @@
 #define __ALTERA_NIOS2_QSYS
 #define __AVS_WBM_BRIDGE
 #define __MANDELBROT_FLOAT
-#define __MMCDMA
 #define __SPIM_TCM_BRIDGE_MISO8
 
 
@@ -257,20 +256,6 @@
 #define MB_FLOAT_NAME "/dev/mb_float"
 #define MB_FLOAT_SPAN 32
 #define MB_FLOAT_TYPE "mandelbrot_float"
-
-
-/*
- * mmcdma configuration
- *
- */
-
-#define ALT_MODULE_CLASS_mmcdma mmcdma
-#define MMCDMA_BASE 0x10000400
-#define MMCDMA_IRQ 3
-#define MMCDMA_IRQ_INTERRUPT_CONTROLLER_ID 0
-#define MMCDMA_NAME "/dev/mmcdma"
-#define MMCDMA_SPAN 1024
-#define MMCDMA_TYPE "mmcdma"
 
 
 /*
@@ -433,6 +418,33 @@
 #define PIO_GPIO1IN_RESET_VALUE 0
 #define PIO_GPIO1IN_SPAN 16
 #define PIO_GPIO1IN_TYPE "altera_avalon_pio"
+
+
+/*
+ * pio_gpio1lo configuration
+ *
+ */
+
+#define ALT_MODULE_CLASS_pio_gpio1lo altera_avalon_pio
+#define PIO_GPIO1LO_BASE 0x10000130
+#define PIO_GPIO1LO_BIT_CLEARING_EDGE_REGISTER 0
+#define PIO_GPIO1LO_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define PIO_GPIO1LO_CAPTURE 0
+#define PIO_GPIO1LO_DATA_WIDTH 32
+#define PIO_GPIO1LO_DO_TEST_BENCH_WIRING 0
+#define PIO_GPIO1LO_DRIVEN_SIM_VALUE 0
+#define PIO_GPIO1LO_EDGE_TYPE "NONE"
+#define PIO_GPIO1LO_FREQ 40000000
+#define PIO_GPIO1LO_HAS_IN 0
+#define PIO_GPIO1LO_HAS_OUT 0
+#define PIO_GPIO1LO_HAS_TRI 1
+#define PIO_GPIO1LO_IRQ -1
+#define PIO_GPIO1LO_IRQ_INTERRUPT_CONTROLLER_ID -1
+#define PIO_GPIO1LO_IRQ_TYPE "NONE"
+#define PIO_GPIO1LO_NAME "/dev/pio_gpio1lo"
+#define PIO_GPIO1LO_RESET_VALUE 0
+#define PIO_GPIO1LO_SPAN 16
+#define PIO_GPIO1LO_TYPE "altera_avalon_pio"
 
 
 /*
@@ -643,7 +655,7 @@
 #define SYSID_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SYSID_NAME "/dev/sysid"
 #define SYSID_SPAN 8
-#define SYSID_TIMESTAMP 1384011125
+#define SYSID_TIMESTAMP 1384054795
 #define SYSID_TYPE "altera_avalon_sysid_qsys"
 
 

@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>2013/11/10 0:39:18</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1384011558845</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>2013/11/10 13:49:44</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1384058984239</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>/home/shuta/projects/shinonome-lcd/mft2013-demo/software/application_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>../../de0nano_nios2.sopcinfo</SopcDesignFile>
@@ -965,6 +965,12 @@
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
+                <slaveDescriptor>pio_gpio1lo</slaveDescriptor>
+                <addressRange>0x10000130 - 0x1000013F</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
                 <slaveDescriptor>pio_gpio1hi</slaveDescriptor>
                 <addressRange>0x10000140 - 0x1000014F</addressRange>
                 <addressSpan>16</addressSpan>
@@ -980,12 +986,6 @@
                 <slaveDescriptor>pio_gpio2in</slaveDescriptor>
                 <addressRange>0x10000170 - 0x1000017F</addressRange>
                 <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>mmcdma</slaveDescriptor>
-                <addressRange>0x10000400 - 0x100007FF</addressRange>
-                <addressSpan>1024</addressSpan>
                 <attributes/>
         </MemoryMap>
         <LinkerSection>
