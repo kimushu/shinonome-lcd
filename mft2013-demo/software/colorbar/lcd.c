@@ -6,7 +6,7 @@
  * @file lcd.c
  * @brief TS8026Y control functions
  * @author kimu_shu
- * @note This file is distributed under The MIT License. See LICENSE for details.
+ * @note This file is distributed under MIT License. See LICENSE for details.
  */
 
 #include <io.h>

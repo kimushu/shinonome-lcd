@@ -2,7 +2,7 @@
  * @file gpio_lcd.h
  * @brief Header of MCP23S08 control functions
  * @author kimu_shu
- * @note This file is distributed under The MIT License. See LICENSE for details.
+ * @note This file is distributed under MIT License. See LICENSE for details.
  */
 
 #ifndef GPIO_LCD_H_

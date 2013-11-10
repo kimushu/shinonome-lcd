@@ -2,7 +2,7 @@
  * @file delay.h
  * @brief Header of delay functions
  * @author kimu_shu
- * @note This file is distributed under The MIT License. See LICENSE for details.
+ * @note This file is distributed under MIT License. See LICENSE for details.
  */
 
 #ifndef DELAY_H_

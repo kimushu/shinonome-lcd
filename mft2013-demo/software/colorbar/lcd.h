@@ -2,7 +2,7 @@
  * @file lcd.h
  * @brief Header of TS8026Y control functions
  * @author kimu_shu
- * @note This file is distributed under The MIT License. See LICENSE for details.
+ * @note This file is distributed under MIT License. See LICENSE for details.
  */
 
 #ifndef LCD_H_
@@ -35,25 +35,25 @@
  */
 
 #if (LCD_ROTATE == 0)
-#  define LCD_ENTRYMODE	0x1130	// AM=0b,ID=11b
+#  define LCD_ENTRYMODE	0x1030	// AM=0b,ID=11b
 #  define LCD_WIDTH		240
 #  define LCD_HEIGHT	320
 #  define LCD_SX(x,y)	(x)
 #  define LCD_SY(x,y)	(y)
 #elif (LCD_ROTATE == 1)
-#  define LCD_ENTRYMODE	0x1128	// AM=1b,ID=10b
+#  define LCD_ENTRYMODE	0x1028	// AM=1b,ID=10b
 #  define LCD_WIDTH		320
 #  define LCD_HEIGHT	240
 #  define LCD_SX(x,y)	(LCD_HEIGHT-(y)-1)
 #  define LCD_SY(x,y)	(x)
 #elif (LCD_ROTATE == 2)
-#  define LCD_ENTRYMODE	0x1100	// AM=0b,ID=00b
+#  define LCD_ENTRYMODE	0x1000	// AM=0b,ID=00b
 #  define LCD_WIDTH		240
 #  define LCD_HEIGHT	320
 #  define LCD_SX(x,y)	(LCD_WIDTH-(x)-1)
 #  define LCD_SY(x,y)	(LCD_HEIGHT-(y)-1)
 #elif (LCD_ROTATE == 3)
-#  define LCD_ENTRYMODE	0x1118	// AM=1b,ID=01b
+#  define LCD_ENTRYMODE	0x1018	// AM=1b,ID=01b
 #  define LCD_WIDTH		320
 #  define LCD_HEIGHT	240
 #  define LCD_SX(x,y)	(y)

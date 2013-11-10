@@ -2,7 +2,7 @@
  * @file delay.c
  * @brief Delay functions
  * @author kimu_shu
- * @note This file is distributed under The MIT License. See LICENSE for details.
+ * @note This file is distributed under MIT License. See LICENSE for details.
  * @attention Tick time must be 1ms (== CPS equals 1000)
  */
 

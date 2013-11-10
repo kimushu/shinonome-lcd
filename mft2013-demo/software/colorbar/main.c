@@ -2,7 +2,7 @@
  * @file main.c
  * @brief Color-bar and simple GPIO/ADIN sample
  * @author kimu_shu
- * @note This file is distributed under The MIT License. See LICENSE for details.
+ * @note This file is distributed under MIT License. See LICENSE for details.
  */
 
 #include <system.h>
@@ -20,6 +20,7 @@ enum
 	DEMO_COLORBAR,
 	DEMO_BOARDNAME,
 	DEMO_SHOWINPUTS,
+	DEMO_MANDELBROT,
 	DEMO_MAXNUMBER,
 };
 
@@ -28,6 +29,7 @@ const char tohex[] = "0123456789ABCDEF";
 static void demo_colorbar(void);
 static void demo_boardname(void);
 static void demo_showinputs(void);
+static void demo_mandelbrot(void);
 
 int main(void)
 {
@@ -48,6 +50,9 @@ int main(void)
 			break;
 		case DEMO_SHOWINPUTS:
 			demo_showinputs();
+			break;
+		case DEMO_MANDELBROT:
+			demo_mandelbrot();
 			break;
 		default:
 			lcd_rect(0, 0, LCD_WIDTH, LCD_HEIGHT, COLOR_BLACK);
@@ -142,4 +147,44 @@ static void demo_showinputs(void)
 		}
 	}
 	while(DEMO_MODE() == DEMO_SHOWINPUTS);
+}
+
+static void demo_mandelbrot(void)
+{
+	static const float args[][6] = {
+		{-2.4f, -1.2f, 1.28f, 0.64f, 0.0f, 0.0f},
+		{-0.843333f, -0.111628f, 0.042667f, 0.021333f, 0.0f, 0.0f},
+		{-0.775333f, -0.111628f, 0.0042667f, 0.0021333f, 0.0f, 0.0f},
+	};
+
+	lcd_write(0x50, 0);
+	lcd_write(0x51, LCD_WIDTH-1);
+	lcd_write(0x52, 0);
+	lcd_write(0x53, LCD_HEIGHT-1);
+	lcd_write(0x03, 0x1028);
+
+	int i = 0;
+	do
+	{
+		lcd_write(0x21, 0);
+		lcd_write(0x20, 0);
+		lcd_write_address(0x22);
+
+		alt_u32 *params = (alt_u32*)args[i];
+		IOWR_32DIRECT(MB_FLOAT_BASE, 0*4, params[0]);
+		IOWR_32DIRECT(MB_FLOAT_BASE, 1*4, params[1]);
+		IOWR_32DIRECT(MB_FLOAT_BASE, 2*4, params[2]);
+		IOWR_32DIRECT(MB_FLOAT_BASE, 3*4, params[3]);
+		IOWR_32DIRECT(MB_FLOAT_BASE, 4*4, params[4]);
+		IOWR_32DIRECT(MB_FLOAT_BASE, 5*4, params[5]);
+
+		IOWR_32DIRECT(MB_FLOAT_BASE, 7*4, 0x0);
+		while(IORD_32DIRECT(MB_FLOAT_BASE, 7*4) & 1);
+
+		mdelay(2000);
+		if(++i >= (sizeof(args) / sizeof(*args))) i = 0;
+	}
+	while(DEMO_MODE() == DEMO_MANDELBROT);
+
+	lcd_write(0x03, LCD_ENTRYMODE);
 }
