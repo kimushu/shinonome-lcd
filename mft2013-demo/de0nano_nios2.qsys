@@ -249,54 +249,6 @@
          type = "String";
       }
    }
-   element pio_gpio0lo.s1
-   {
-      datum baseAddress
-      {
-         value = "256";
-         type = "String";
-      }
-   }
-   element pio_gpio1hi.s1
-   {
-      datum baseAddress
-      {
-         value = "320";
-         type = "String";
-      }
-   }
-   element pio_pushsw.s1
-   {
-      datum baseAddress
-      {
-         value = "80";
-         type = "String";
-      }
-   }
-   element pio_gpio0hi.s1
-   {
-      datum baseAddress
-      {
-         value = "272";
-         type = "String";
-      }
-   }
-   element pio_gpio2in.s1
-   {
-      datum baseAddress
-      {
-         value = "368";
-         type = "String";
-      }
-   }
-   element pio_gpio0in.s1
-   {
-      datum baseAddress
-      {
-         value = "288";
-         type = "String";
-      }
-   }
    element pio_led.s1
    {
       datum baseAddress
@@ -313,6 +265,14 @@
          type = "String";
       }
    }
+   element pio_gpio0lo.s1
+   {
+      datum baseAddress
+      {
+         value = "256";
+         type = "String";
+      }
+   }
    element timer_tick.s1
    {
       datum baseAddress
@@ -321,11 +281,11 @@
          type = "String";
       }
    }
-   element pio_dipsw.s1
+   element pio_pushsw.s1
    {
       datum baseAddress
       {
-         value = "96";
+         value = "80";
          type = "String";
       }
    }
@@ -345,11 +305,51 @@
          type = "String";
       }
    }
+   element pio_gpio2in.s1
+   {
+      datum baseAddress
+      {
+         value = "368";
+         type = "String";
+      }
+   }
+   element pio_gpio0in.s1
+   {
+      datum baseAddress
+      {
+         value = "288";
+         type = "String";
+      }
+   }
+   element pio_gpio1hi.s1
+   {
+      datum baseAddress
+      {
+         value = "320";
+         type = "String";
+      }
+   }
+   element pio_dipsw.s1
+   {
+      datum baseAddress
+      {
+         value = "96";
+         type = "String";
+      }
+   }
    element ipl_memory.s1
    {
       datum baseAddress
       {
          value = "268378112";
+         type = "String";
+      }
+   }
+   element pio_gpio0hi.s1
+   {
+      datum baseAddress
+      {
+         value = "272";
          type = "String";
       }
    }
@@ -361,19 +361,19 @@
          type = "int";
       }
    }
-   element spim_gpio2.spi_control_port
-   {
-      datum baseAddress
-      {
-         value = "160";
-         type = "String";
-      }
-   }
    element spim_adc.spi_control_port
    {
       datum baseAddress
       {
          value = "192";
+         type = "String";
+      }
+   }
+   element spim_gpio2.spi_control_port
+   {
+      datum baseAddress
+      {
+         value = "160";
          type = "String";
       }
    }
@@ -440,7 +440,7 @@
  <parameter name="projectName" value="shinolcd-demo.qpf" />
  <parameter name="sopcBorderPoints" value="false" />
  <parameter name="systemHash" value="1" />
- <parameter name="timeStamp" value="1384052576452" />
+ <parameter name="timeStamp" value="1384054759215" />
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
  <interface name="epcs" internal="epcs.external" type="conduit" dir="end" />
@@ -495,7 +495,11 @@
    internal="pio_gpio0in.external_connection"
    type="conduit"
    dir="end" />
- <interface name="gpio1lo" internal="pio_gpio1lo.external_connection" />
+ <interface
+   name="gpio1lo"
+   internal="pio_gpio1lo.external_connection"
+   type="conduit"
+   dir="end" />
  <interface
    name="gpio1hi"
    internal="pio_gpio1hi.external_connection"
@@ -608,7 +612,7 @@
   <parameter name="tightlyCoupledInstructionMaster2AddrWidth" value="1" />
   <parameter name="tightlyCoupledInstructionMaster3AddrWidth" value="1" />
   <parameter name="instSlaveMapParam"><![CDATA[<address-map><slave name='sdram.s1' start='0x0' end='0x2000000' /><slave name='epcs.epcs_control_port' start='0xFFF0000' end='0xFFF0800' /><slave name='nios2_main.jtag_debug_module' start='0xFFF0800' end='0xFFF1000' /></address-map>]]></parameter>
-  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='sdram.s1' start='0x0' end='0x2000000' /><slave name='mb_float.s1' start='0xF000000' end='0xF000020' /><slave name='epcs.epcs_control_port' start='0xFFF0000' end='0xFFF0800' /><slave name='nios2_main.jtag_debug_module' start='0xFFF0800' end='0xFFF1000' /><slave name='sysid.control_slave' start='0x10000000' end='0x10000008' /><slave name='jtag_uart.avalon_jtag_slave' start='0x10000008' end='0x10000010' /><slave name='timer_tick.s1' start='0x10000020' end='0x10000040' /><slave name='pio_led.s1' start='0x10000040' end='0x10000050' /><slave name='pio_pushsw.s1' start='0x10000050' end='0x10000060' /><slave name='pio_dipsw.s1' start='0x10000060' end='0x10000070' /><slave name='i2c_master_bridge.avs' start='0x10000070' end='0x10000078' /><slave name='lcd.uas' start='0x10000080' end='0x10000082' /><slave name='spim_tcm_bridge.control_port' start='0x10000090' end='0x10000091' /><slave name='spim_gpio2.spi_control_port' start='0x100000A0' end='0x100000C0' /><slave name='spim_adc.spi_control_port' start='0x100000C0' end='0x100000E0' /><slave name='pio_gpio0lo.s1' start='0x10000100' end='0x10000110' /><slave name='pio_gpio0hi.s1' start='0x10000110' end='0x10000120' /><slave name='pio_gpio0in.s1' start='0x10000120' end='0x10000130' /><slave name='pio_gpio1hi.s1' start='0x10000140' end='0x10000150' /><slave name='pio_gpio1in.s1' start='0x10000150' end='0x10000160' /><slave name='pio_gpio2in.s1' start='0x10000170' end='0x10000180' /></address-map>]]></parameter>
+  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='sdram.s1' start='0x0' end='0x2000000' /><slave name='mb_float.s1' start='0xF000000' end='0xF000020' /><slave name='epcs.epcs_control_port' start='0xFFF0000' end='0xFFF0800' /><slave name='nios2_main.jtag_debug_module' start='0xFFF0800' end='0xFFF1000' /><slave name='sysid.control_slave' start='0x10000000' end='0x10000008' /><slave name='jtag_uart.avalon_jtag_slave' start='0x10000008' end='0x10000010' /><slave name='timer_tick.s1' start='0x10000020' end='0x10000040' /><slave name='pio_led.s1' start='0x10000040' end='0x10000050' /><slave name='pio_pushsw.s1' start='0x10000050' end='0x10000060' /><slave name='pio_dipsw.s1' start='0x10000060' end='0x10000070' /><slave name='i2c_master_bridge.avs' start='0x10000070' end='0x10000078' /><slave name='lcd.uas' start='0x10000080' end='0x10000082' /><slave name='spim_tcm_bridge.control_port' start='0x10000090' end='0x10000091' /><slave name='spim_gpio2.spi_control_port' start='0x100000A0' end='0x100000C0' /><slave name='spim_adc.spi_control_port' start='0x100000C0' end='0x100000E0' /><slave name='pio_gpio0lo.s1' start='0x10000100' end='0x10000110' /><slave name='pio_gpio0hi.s1' start='0x10000110' end='0x10000120' /><slave name='pio_gpio0in.s1' start='0x10000120' end='0x10000130' /><slave name='pio_gpio1lo.s1' start='0x10000130' end='0x10000140' /><slave name='pio_gpio1hi.s1' start='0x10000140' end='0x10000150' /><slave name='pio_gpio1in.s1' start='0x10000150' end='0x10000160' /><slave name='pio_gpio2in.s1' start='0x10000170' end='0x10000180' /></address-map>]]></parameter>
   <parameter name="clockFrequency" value="133333333" />
   <parameter name="deviceFamilyName" value="Cyclone IV E" />
   <parameter name="internalIrqMaskSystemInfo" value="119" />
@@ -1058,7 +1062,7 @@
  <module
    kind="altera_avalon_pio"
    version="13.0.1.99.2"
-   enabled="0"
+   enabled="1"
    name="pio_gpio1lo">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />

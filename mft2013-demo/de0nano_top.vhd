@@ -1,6 +1,8 @@
 --------------------------------------------------------------------------------
--- Terasic DE0-Nano Top Module Template
---
+-- Terasic DE0-Nano Top Module for shinonome-lcd/mft2013-demo
+-- Author:  kimu_shu
+-- License: MIT License (See LICENSE for details)
+--------------------------------------------------------------------------------
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -85,14 +87,13 @@ architecture structure of de0nano_top is
       led_export         : out   std_logic_vector(7 downto 0);                     -- export
       pushsw_export      : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- export
       dipsw_export       : in    std_logic_vector(3 downto 0)  := (others => 'X'); -- export
-      ------------------------------------------------------------
       -- For mmcdma by s.osafune {{{
-      mmc_nCS            : out   std_logic;                                        -- nCS
-      mmc_SCK            : out   std_logic;                                        -- SCK
-      mmc_SDO            : out   std_logic;                                        -- SDO
-      mmc_SDI            : in    std_logic                     := 'X';             -- SDI
-      mmc_CD             : in    std_logic                     := 'X';             -- CD
-      mmc_WP             : in    std_logic                     := 'X';             -- WP
+--    mmc_nCS            : out   std_logic;                                        -- nCS
+--    mmc_SCK            : out   std_logic;                                        -- SCK
+--    mmc_SDO            : out   std_logic;                                        -- SDO
+--    mmc_SDI            : in    std_logic                     := 'X';             -- SDI
+--    mmc_CD             : in    std_logic                     := 'X';             -- CD
+--    mmc_WP             : in    std_logic                     := 'X';             -- WP
       -- }}}
       i2cbus_scl_in      : in    std_logic                     := 'X';             -- scl_in
       i2cbus_scl_out     : out   std_logic;                                        -- scl_out
@@ -104,7 +105,6 @@ architecture structure of de0nano_top is
       reset_core_reset_n : in    std_logic                     := 'X';             -- reset_n
       clk_peri_clk       : in    std_logic                     := 'X';             -- clk
       reset_peri_reset_n : in    std_logic                     := 'X';             -- reset_n
-      ------------------------------------------------------------
       -- For shinonome-lcd rev1.1 {{{
       gpio2_addr_mosi    : out   std_logic_vector(0 downto 0);                     -- addr_mosi
       gpio2_csio_n       : out   std_logic_vector(0 downto 0);                     -- csio_n
@@ -113,13 +113,6 @@ architecture structure of de0nano_top is
       gpio2_rd_n         : out   std_logic_vector(0 downto 0);                     -- rd_n
       gpio2_cslcd_n      : out   std_logic_vector(0 downto 0);                     -- cslcd_n
       -- }}}
-      ------------------------------------------------------------
-      -- For prototyping board
---    lcd_tcm_address_out      : out   std_logic_vector(0 downto 0);                     -- tcm_address_out
---    lcd_tcm_read_n_out       : out   std_logic_vector(0 downto 0);                     -- tcm_read_n_out
---    lcd_tcm_write_n_out      : out   std_logic_vector(0 downto 0);                     -- tcm_write_n_out
---    lcd_tcm_data_out         : inout std_logic_vector(7 downto 0)  := (others => 'X'); -- tcm_data_out
---    lcd_tcm_chipselect_n_out : out   std_logic_vector(0 downto 0);                     -- tcm_chipselect_n_out
       adc_MISO           : in    std_logic                     := 'X';             -- MISO
       adc_MOSI           : out   std_logic;                                        -- MOSI
       adc_SCLK           : out   std_logic;                                        -- SCLK
@@ -127,10 +120,11 @@ architecture structure of de0nano_top is
       gpio0lo_export     : inout std_logic_vector(31 downto 0) := (others => 'X'); -- export
       gpio0hi_export     : inout std_logic_vector(1 downto 0)  := (others => 'X'); -- export
       gpio0in_export     : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- export
-      -- If using mmcdma, gpio1xx must be disabled
---    gpio1lo_export     : inout std_logic_vector(31 downto 0) := (others => 'X'); -- export
+      -- If mmcdma is used, gpio1xx must be disabled {{{
+      gpio1lo_export     : inout std_logic_vector(31 downto 0) := (others => 'X'); -- export
       gpio1hi_export     : inout std_logic_vector(1 downto 0)  := (others => 'X'); -- export
       gpio1in_export     : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- export
+      -- }}}
       gpio2in_export     : in    std_logic_vector(2 downto 0)  := (others => 'X')  -- export
     );
   end component de0nano_nios2;
@@ -144,21 +138,6 @@ architecture structure of de0nano_top is
       locked  : out std_logic
     );
   end component syspll;
-
-  function sort_data_bus (a: in std_logic_vector)
-    return std_logic_vector is
-    variable result: std_logic_vector(7 downto 0);
-  begin
-    result(0) := a(6+a'low);
-    result(1) := a(7+a'low);
-    result(2) := a(4+a'low);
-    result(3) := a(5+a'low);
-    result(4) := a(2+a'low);
-    result(5) := a(3+a'low);
-    result(6) := a(0+a'low);
-    result(7) := a(1+a'low);
-    return result;
-  end;
 
   function reverse_bus(b: std_logic_vector)
     return std_logic_vector is
@@ -176,12 +155,14 @@ architecture structure of de0nano_top is
   signal clk_locked_w : std_logic;
   signal sys_reset_w  : std_logic;
 
-  signal mmc_cs_n_w   : std_logic;
-  signal mmc_sck_w    : std_logic;
-  signal mmc_sdo_w    : std_logic;
-  signal mmc_sdi_w    : std_logic;
-  signal mmc_cd_w     : std_logic;
-  signal mmc_wp_w     : std_logic;
+  -- For mmcdma by s.osafune {{{
+--signal mmc_cs_n_w   : std_logic;
+--signal mmc_sck_w    : std_logic;
+--signal mmc_sdo_w    : std_logic;
+--signal mmc_sdi_w    : std_logic;
+--signal mmc_cd_w     : std_logic;
+--signal mmc_wp_w     : std_logic;
+  -- }}}
 
   signal i2c_scl_w    : std_logic;
   signal i2c_sclen_w  : std_logic;
@@ -194,13 +175,15 @@ begin -- structure
 
   DRAM_CLK    <= clk_sdr_w;
 
-  GPIO_1(24)  <= mmc_cs_n_w;
-  GPIO_1(7)   <= not mmc_cs_n_w;
-  GPIO_1(26)  <= mmc_sck_w;
-  GPIO_1(27)  <= mmc_sdo_w;
-  mmc_sdi_w   <= GPIO_1(29);
-  mmc_cd_w    <= GPIO_1(21);
-  mmc_wp_w    <= '1';
+  -- For mmcdma by s.osafune {{{
+--GPIO_1(24)  <= mmc_cs_n_w;
+--GPIO_1(7)   <= not mmc_cs_n_w;
+--GPIO_1(26)  <= mmc_sck_w;
+--GPIO_1(27)  <= mmc_sdo_w;
+--mmc_sdi_w   <= GPIO_1(29);
+--mmc_cd_w    <= GPIO_1(21);
+--mmc_wp_w    <= '1';
+  --
 
   I2C_SCLK    <= 'Z' when (i2c_sclen_w = '0') else i2c_scl_w;
   I2C_SDAT    <= 'Z' when (i2c_sdaen_w = '0') else i2c_sda_w;
@@ -234,12 +217,14 @@ begin -- structure
     led_export         => LED,
     pushsw_export      => KEY,
     dipsw_export       => SW,
-    mmc_nCS            => mmc_cs_n_w,
-    mmc_SCK            => mmc_sck_w,
-    mmc_SDO            => mmc_sdo_w,
-    mmc_SDI            => mmc_sdi_w,
-    mmc_CD             => mmc_cd_w,
-    mmc_WP             => mmc_wp_w,
+    -- For mmcdma by s.osafune {{{
+--  mmc_nCS            => mmc_cs_n_w,
+--  mmc_SCK            => mmc_sck_w,
+--  mmc_SDO            => mmc_sdo_w,
+--  mmc_SDI            => mmc_sdi_w,
+--  mmc_CD             => mmc_cd_w,
+--  mmc_WP             => mmc_wp_w,
+    -- }}}
     i2cbus_scl_in      => I2C_SCLK,
     i2cbus_scl_out     => i2c_scl_w,
     i2cbus_scl_outen   => i2c_sclen_w,
@@ -250,7 +235,6 @@ begin -- structure
     reset_core_reset_n => sys_reset_w,
     clk_peri_clk       => clk_peri_w,
     reset_peri_reset_n => sys_reset_w,
-    ------------------------------------------------------------
     -- For shinonome-lcd rev1.1 {{{
     gpio2_addr_mosi    => GPIO_2(2 downto 2),
     gpio2_csio_n       => GPIO_2(0 downto 0),
@@ -259,13 +243,6 @@ begin -- structure
     gpio2_rd_n         => GPIO_2(4 downto 4),
     gpio2_cslcd_n      => GPIO_2(1 downto 1),
     -- }}}
-    ------------------------------------------------------------
-    -- For prototyping board
-    -- lcd_tcm_address_out      => GPIO_0(12 downto 12),
-    -- lcd_tcm_read_n_out       => GPIO_0(14 downto 14),
-    -- lcd_tcm_write_n_out      => GPIO_0(15 downto 15),
-    -- lcd_tcm_data_out         => sort_data_bus(GPIO_0(23 downto 16)),
-    -- lcd_tcm_chipselect_n_out => GPIO_0(13 downto 13),
     adc_MISO           => ADC_SDAT,
     adc_MOSI           => ADC_SADDR,
     adc_SCLK           => ADC_SCLK,
@@ -273,9 +250,11 @@ begin -- structure
     gpio0lo_export     => GPIO_0(31 downto 0),
     gpio0hi_export     => GPIO_0(33 downto 32),
     gpio0in_export     => GPIO_0_IN,
---  gpio1lo_export     => GPIO_1(31 downto 0),
+    -- If mmcdma is used, gpio1xx must be disabled {{{
+    gpio1lo_export     => GPIO_1(31 downto 0),
     gpio1hi_export     => GPIO_1(33 downto 32),
     gpio1in_export     => GPIO_1_IN,
+    -- }}}
     gpio2in_export     => GPIO_2_IN
   );
 
