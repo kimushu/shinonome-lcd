@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------
 -- Avalon MM Slave to Wishbone Master Bridge
 -- Author:  kimu_shu
--- License: The MIT License (See LICENSE for details)
+-- License: MIT License (See LICENSE for details)
 --------------------------------------------------------------------------------
 library ieee;
 use ieee.std_logic_1164.all;
