@@ -1,17 +1,16 @@
 /*
- * font.c
- *
- *  Created on: 2013/11/02
- *      Author: shuta
+ * NOTICE: Font table was converted from BDF files in "M+ bitmap fonts"
+ * http://mplus-fonts.sourceforge.jp/mplus-bitmap-fonts/
+ */
+/**
+ * @file font.c
+ * @brief Font table
+ * @author kimu_shu
+ * @note This file is distributed under The MIT License. See LICENSE for details.
  */
 
 #include <io.h>
 #include "font.h"
-
-/*
- * Font table was converted from BDF files in "M+ bitmap fonts"
- * http://mplus-fonts.sourceforge.jp/mplus-bitmap-fonts/
- */
 
 #ifdef FONT_F10R
 /* mplus_f10r.bdf */

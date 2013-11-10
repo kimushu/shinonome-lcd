@@ -1,8 +1,8 @@
-/*
- * font.h
- *
- *  Created on: 2013/11/09
- *      Author: shuta
+/**
+ * @file font.h
+ * @brief Font table
+ * @author kimu_shu
+ * @note This file is distributed under The MIT License. See LICENSE for details.
  */
 
 #ifndef FONT_H_
