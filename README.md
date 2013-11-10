@@ -13,8 +13,9 @@ See manual.pdf for details.
 ## Quick validation of assemblied board
 1. Connect DE0-Nano **without** Shinonome LCD board to your PC.
 2. Program two JIC files using Quartus II Programmer.
-   - mft2013-demo/output\_files/de0nano.jic
-   - mft2013-demo/software/colorbar/colorbar\_epcs{16 or 64}.jic
+   - de0nano\_epcs{16or64}.jic
+   - colorbar\_epcs{16or64}.jic
+      - These files can be found in output\_files/demo_jic.zip
       - According to EPCS flash device on your DE0-Nano, select either of the two.
 3. Disconnect DE0-Nano from PC.
 4. Connect Shinonome LCD board to DE0-Nano.
